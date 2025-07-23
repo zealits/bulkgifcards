@@ -13,8 +13,11 @@ router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    console.log("[REGISTER] Incoming request:", { name, email, passwordPresent: !!password });
+
     // Validation
     if (!name || !email || !password) {
+      console.log("[REGISTER] Missing fields", { name, email, passwordPresent: !!password });
       return res.status(400).json({
         success: false,
         message: "Please provide name, email, and password",
@@ -22,6 +25,7 @@ router.post("/register", async (req, res) => {
     }
 
     if (password.length < 6) {
+      console.log("[REGISTER] Password too short for email:", email);
       return res.status(400).json({
         success: false,
         message: "Password must be at least 6 characters long",
@@ -31,6 +35,7 @@ router.post("/register", async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
+      console.log("[REGISTER] User already exists:", email);
       return res.status(400).json({
         success: false,
         message: "User with this email already exists",
@@ -49,13 +54,16 @@ router.post("/register", async (req, res) => {
       verificationToken,
       verificationTokenExpires,
     });
+    console.log("[REGISTER] User created:", user.email);
 
     // Send verification email
     const emailSent = await sendVerificationEmail(user.email, verificationToken, user.name);
 
     if (!emailSent) {
       // If email fails, still create user but warn
-      console.warn("Failed to send verification email to:", user.email);
+      console.warn("[REGISTER] Failed to send verification email to:", user.email);
+    } else {
+      console.log("[REGISTER] Verification email sent to:", user.email);
     }
 
     // Generate JWT token (user can login but won't have access to protected routes until verified)
@@ -75,7 +83,7 @@ router.post("/register", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Registration error:", error);
+    console.error("[REGISTER] Registration error:", error);
     res.status(500).json({
       success: false,
       message: "Server error during registration",
@@ -89,9 +97,11 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("[LOGIN] Incoming request:", { email, passwordPresent: !!password });
 
     // Validation
     if (!email || !password) {
+      console.log("[LOGIN] Missing fields", { email, passwordPresent: !!password });
       return res.status(400).json({
         success: false,
         message: "Please provide email and password",
@@ -101,20 +111,24 @@ router.post("/login", async (req, res) => {
     // Check if user exists
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
+      console.log("[LOGIN] User not found:", email);
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
     }
+    console.log("[LOGIN] User found:", user.email);
 
     // Check password
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
+      console.log("[LOGIN] Invalid password for:", email);
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
     }
+    console.log("[LOGIN] Password valid for:", email);
 
     // Generate JWT token
     const token = generateToken({ userId: user._id });
@@ -133,7 +147,7 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("[LOGIN] Login error:", error);
     res.status(500).json({
       success: false,
       message: "Server error during login",

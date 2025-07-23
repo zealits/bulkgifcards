@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_BASE_URL = "https://bulkgiftcard.aiiventure.com/api";
-const API_BASE_URL = "http://localhost:1996/api";
+const API_BASE_URL = "https://bulkgiftcard.aiiventure.com/api";
+// const API_BASE_URL = "http://localhost:1996/api";
 // Create axios instance with base configuration
 const api = axios.create({
   baseURL: API_BASE_URL,

@@ -18,6 +18,7 @@ import {
   DollarSign,
   MessageSquare,
 } from "lucide-react";
+import studieshqlogo from "../assets/studieshqlogo.png";
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -260,8 +261,7 @@ const Dashboard = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <FileSpreadsheet className="h-8 w-8 text-indigo-600" />
-              <h1 className="ml-2 text-xl font-semibold text-gray-900">Giftogram Dashboard</h1>
+              <img src={studieshqlogo} alt="StudiesHQ Logo" className="ml-2 h-10 w-auto" />
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-700">Welcome, {user?.name}</span>
@@ -296,7 +296,7 @@ const Dashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Total Uploads</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Total Files Uploaded</dt>
                         <dd className="text-lg font-medium text-gray-900">{stats.totalUploads}</dd>
                       </dl>
                     </div>
@@ -304,7 +304,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="bg-white overflow-hidden shadow rounded-lg">
+              {/* <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -312,13 +312,13 @@ const Dashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Total Emails</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Total Unique Emails Processed</dt>
                         <dd className="text-lg font-medium text-gray-900">{stats.totalValidEmails}</dd>
                       </dl>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
@@ -328,7 +328,7 @@ const Dashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Gift Cards Sent</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">Total Gift Cards Delivered</dt>
                         <dd className="text-lg font-medium text-gray-900">{stats.giftCards?.totalGiftCards || 0}</dd>
                       </dl>
                     </div>
@@ -344,7 +344,9 @@ const Dashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Gift Card Value</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">
+                          Total Value of Gift Cards Delivered
+                        </dt>
                         <dd className="text-lg font-medium text-gray-900">
                           ${stats.giftCards?.totalGiftCardAmount?.toFixed(2) || "0.00"}
                         </dd>
@@ -357,7 +359,7 @@ const Dashboard = () => {
 
             {/* Email Status Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white overflow-hidden shadow rounded-lg">
+              {/* <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -365,15 +367,17 @@ const Dashboard = () => {
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>
-                        <dt className="text-sm font-medium text-gray-500 truncate">Sent Emails</dt>
+                        <dt className="text-sm font-medium text-gray-500 truncate">
+                          Gift Card Notification Emails Sent
+                        </dt>
                         <dd className="text-lg font-medium text-gray-900">{stats.sentEmails}</dd>
                       </dl>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="bg-white overflow-hidden shadow rounded-lg">
+              {/* <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -387,9 +391,9 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="bg-white overflow-hidden shadow rounded-lg">
+              {/* <div className="bg-white overflow-hidden shadow rounded-lg">
                 <div className="p-5">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
@@ -403,7 +407,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </>
         )}
